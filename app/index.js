@@ -21,12 +21,13 @@ var accessLogStream = fileStreamRotator.getStream({
   verbose: false
 });
 
-// Adding logger for development
-// setup the logger
+// Adding logger
 if (app.get('env') === 'production') {
+  // Production logger logs to a rotated file
   console.log(app.get('env'));
   app.use(logger('combined', {stream: accessLogStream}));
 } else {
+  // Development logger logs to console
   console.log(app.get('env'));
   app.use(logger('dev'));
 }

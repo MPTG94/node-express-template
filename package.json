@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "browser-sync": "^2.16.1",
+    "del": "^2.2.2",
     "eslint": "^3.6.1",
     "eslint-config-google": "^0.6.0",
     "gulp": "^3.9.1",
