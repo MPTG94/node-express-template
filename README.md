@@ -5,3 +5,4 @@ Learning and playing with NodeJS, ExpressJS and Angular2
 * Add CSS minification
 * Add JS minification
 * Add unit tests
+* Add Angular2

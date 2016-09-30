@@ -11,6 +11,9 @@
     "eslint": "^3.6.1",
     "eslint-config-google": "^0.6.0",
     "gulp": "^3.9.1",
+    "gulp-clean-css": "^2.0.13",
+    "gulp-concat": "^2.6.0",
+    "gulp-minify": "0.0.14",
     "gulp-nodemon": "^2.2.1",
     "nodemon": "^1.10.2"
   },
