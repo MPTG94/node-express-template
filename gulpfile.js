@@ -4,6 +4,9 @@ var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 var nodemon = require('gulp-nodemon');
 var concat = require('gulp-concat');
+var minify = require('gulp-minify');
+var cleanCss = require('gulp-clean-css');
+var rename = require('gulp-rename');
 
 // Default Gulp task to run including all necessary dependencies
 gulp.task('default', ['browser-sync', 'build'], function() {
@@ -36,14 +39,24 @@ gulp.task('build', ['pack-js', 'pack-css']);
 
 // Task to minify JS
 gulp.task('pack-js', function() {
-  return gulp.src('./public/js/*.js')
+  return gulp.src(['./public/js/*.js', '!./public/js/*.min.js'])
               .pipe(concat('site.js'))
+              .pipe(minify({
+                ext: {
+                  min: '.min.js'
+                },
+                noSource: false
+              }))
               .pipe(gulp.dest('./public/js'));
 });
 
 // Task to minify CSS
 gulp.task('pack-css', function() {
-  return gulp.src('./public/css/*.css')
+  return gulp.src(['./public/css/*.css', '!./public/css/*.min.css'])
               .pipe(concat('site.css'))
+              .pipe(cleanCss())
+              .pipe(rename({
+                suffix: '.min'
+              }))
               .pipe(gulp.dest('./public/css'));
 });
