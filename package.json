@@ -7,12 +7,14 @@
     "express": "^4.14.0"
   },
   "devDependencies": {
+    "browser-sync": "^2.16.1",
     "eslint": "^3.6.1",
     "eslint-config-google": "^0.6.0",
     "gulp": "^3.9.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app/index.js"
   },
   "repository": {
     "type": "git",
