@@ -1,0 +1,31 @@
+{
+  "name": "node-express-angular",
+  "version": "1.0.0",
+  "description": "Learning and messing around with NodeJS, ExpressJS and Angular2",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MPTG94/node-express-angular.git"
+  },
+  "keywords": [
+    "Node",
+    "NodeJS",
+    "Express",
+    "ExpressJS",
+    "Angular",
+    "Angular2"
+  ],
+  "author": "MuseApps",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MPTG94/node-express-angular/issues"
+  },
+  "homepage": "https://github.com/MPTG94/node-express-angular#readme"
+}
