@@ -11,7 +11,7 @@ var htmlmin = require('gulp-htmlmin');
 
 // Default Gulp task to run including all necessary dependencies
 gulp.task('default', ['browser-sync', 'build'], function() {
-  gulp.watch(["./public/html/*.html", './public/js/*.js',
+  gulp.watch(["./public/*.html", './public/js/*.js',
   './public/css/*.css'], reload);
 });
 
@@ -43,9 +43,9 @@ gulp.task('build', ['minify-html', 'pack-minify-js', 'pack-minify-css']);
 
 // Task to minify HTML
 gulp.task('minify-html', function() {
-  return gulp.src('./source/html/*.html')
+  return gulp.src('./source/*.html')
               .pipe(htmlmin())
-              .pipe(gulp.dest('./public/html'));
+              .pipe(gulp.dest('./public/'));
 });
 
 // Task to minify JS

@@ -32,8 +32,8 @@ if (app.get('env') === 'production') {
 }
 
 // Setting default route for root
-// Serving index.html for root request
-app.use(express.static(path.join(__dirname, '../', 'public/html')));
+// Serving html, css and js files for website
+app.use(express.static(path.join(__dirname, '../', 'public')));
 
 // Setting app listen on port 3000
 app.listen(3000, function() {
