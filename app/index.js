@@ -23,7 +23,11 @@ var accessLogStream = fileStreamRotator.getStream({
 
 // Adding logger for development
 // setup the logger
-app.use(logger('combined', {stream: accessLogStream}));
+if (app.get('env') === 'production') {
+  app.use(logger('combined', {stream: accessLogStream}));
+} else {
+  app.use(logger('dev'));
+}
 
 // Setting default route for root
 // Serving index.html for root request
