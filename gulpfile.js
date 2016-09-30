@@ -7,6 +7,7 @@ var concat = require('gulp-concat');
 var minify = require('gulp-minify');
 var cleanCss = require('gulp-clean-css');
 var rename = require('gulp-rename');
+var htmlmin = require('gulp-htmlmin');
 
 // Default Gulp task to run including all necessary dependencies
 gulp.task('default', ['browser-sync', 'build'], function() {
@@ -38,24 +39,31 @@ gulp.task('nodemon', function(cb) {
 });
 
 // Build task to initiate minify tasks for CSS and JS
-gulp.task('build', ['pack-js', 'pack-css']);
+gulp.task('build', ['minify-html', 'pack-minify-js', 'pack-minify-css']);
+
+// Task to minify HTML
+gulp.task('minify-html', function() {
+  return gulp.src('./source/html/*.html')
+              .pipe(htmlmin())
+              .pipe(gulp.dest('./public/html'));
+});
 
 // Task to minify JS
-gulp.task('pack-js', function() {
-  return gulp.src(['./public/js/*.js', '!./public/js/*.min.js'])
+gulp.task('pack-minify-js', function() {
+  return gulp.src(['./source/js/*.js', '!./source/js/*.min.js'])
               .pipe(concat('site.js'))
               .pipe(minify({
                 ext: {
                   min: '.min.js'
                 },
-                noSource: false
+                noSource: true
               }))
               .pipe(gulp.dest('./public/js'));
 });
 
 // Task to minify CSS
-gulp.task('pack-css', function() {
-  return gulp.src(['./public/css/*.css', '!./public/css/*.min.css'])
+gulp.task('pack-minify-css', function() {
+  return gulp.src(['./source/css/*.css', '!./source/css/*.min.css'])
               .pipe(concat('site.css'))
               .pipe(cleanCss())
               .pipe(rename({
