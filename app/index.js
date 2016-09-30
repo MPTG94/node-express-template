@@ -1,17 +1,33 @@
 'use strict';
-// Adding express module
+// Adding NodeJS modules
+var fileStreamRotator = require('file-stream-rotator');
 var express = require('express');
+var fs = require('fs');
 var path = require('path');
+var logger = require('morgan');
+
+// Initialize express
 var app = express();
-// Setting var for html files path
-var htmlDir = './app/html/';
+var logDirectory = path.join(__dirname, '../', 'log');
+
+// ensure log directory exists
+fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
+
+// create a rotating write stream
+var accessLogStream = fileStreamRotator.getStream({
+  date_format: 'YYYYMMDD',
+  filename: path.join(logDirectory, 'access-%DATE%.log'),
+  frequency: 'daily',
+  verbose: false
+});
+
+// Adding logger for development
+// setup the logger
+app.use(logger('combined', {stream: accessLogStream}));
 
 // Setting default route for root
 // Serving index.html for root request
 app.use(express.static(path.join(__dirname, '/html')));
-app.get('/', function(req, res) {
-  res.sendFile(htmlDir + 'index.html');
-});
 
 // Setting app listen on port 3000
 app.listen(3000, function() {
