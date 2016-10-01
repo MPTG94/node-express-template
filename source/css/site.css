@@ -1,58 +1,75 @@
 header {
     background: #0072cf;
 }
+
 hr.star-light:after {
     background-color: #0072cf;
 }
+
 hr.star-primary {
     border-color: #d95e49;
 }
+
 hr.star-primary:after {
     background-color: white;
     color: #d95e49;
 }
+
 section.about {
     background: #626262;
 }
+
 footer .footer-above {
     background-color: #d95e49;
 }
+
 footer .footer-below {
     background-color: #003458;
 }
+
 .navbar-default {
     background-color: #d95e49;
 }
+
 .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
     color: #0ee7bd;
 }
-.navbar-default .navbar-nav> li> a:hover, .navbar-default .navbar-nav> li> a:focus {
+
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
     color: #0ee7bd;
 }
+
 .navbar-custom .navbar-nav li.active a {
     background: #003458;
 }
+
 .navbar-custom .navbar-nav li.active a:hover, .navbar-custom .navbar-nav li.active a:focus, .navbar-custom .navbar-nav li.active a:active {
     background: #003458;
 }
+
 .navbar-custom .navbar-toggle:hover, .navbar-custom .navbar-toggle:focus {
     background-color: #003458;
     border-color: #003458;
 }
+
 .brand-blue-header {
     color: #d95e49;
 }
+
 .btn-success {
     background-color: #0072cf;
     border-color: #0072cf
 }
-.btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .open> .dropdown-toggle.btn-success {
+
+.btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .open>.dropdown-toggle.btn-success {
     background-color: #fc857e;
     border-color: #fc857e
 }
+
 #portfolio .portfolio-item .portfolio-link .caption {
     background: rgba(222, 97, 90, .9);
 }
+
 .btn-outline-facebook {
     margin-top: 15px;
     border: solid 2px #fff;
@@ -61,6 +78,7 @@ footer .footer-below {
     background: 0 0;
     transition: all .3s ease-in-out;
 }
+
 .btn-outline-google-plus {
     margin-top: 15px;
     border: solid 2px #fff;
@@ -69,6 +87,7 @@ footer .footer-below {
     background: 0 0;
     transition: all .3s ease-in-out;
 }
+
 .btn-outline-twitter {
     margin-top: 15px;
     border: solid 2px #fff;
@@ -77,28 +96,40 @@ footer .footer-below {
     background: 0 0;
     transition: all .3s ease-in-out;
 }
+
 .btn-outline-facebook:hover, .btn-outline-facebook:focus, .btn-outline-facebook:active, .btn-outline-facebook.active {
     border: solid 2px #fff;
     color: #3B5998;
     background: #fff;
 }
+
 .btn-outline-google-plus:hover, .btn-outline-google-plus:focus, .btn-outline-google-plus:active, .btn-outline-google-plus.active {
     border: solid 2px #fff;
     color: #dd4b39;
     background: #fff;
 }
+
 .btn-outline-twitter:hover, .btn-outline-twitter:focus, .btn-outline-twitter:active, .btn-outline-twitter.active {
     border: solid 2px #fff;
     color: #00aced;
     background: #fff;
 }
+
 .modal-secondary-header {
     font-size: 1.25em;
     font-weight: 300;
 }
+
 @media(min-width:768px) {
     .modal-secondary-header {
         font-size: 1.75em;
         font-weight: 300;
     }
+}
+
+.express-logo {
+    display: block;
+    font: 25px "Helvetica Neue", "Open Sans", sans-serif;
+    font-weight: 100;
+    color: #444;
 }
