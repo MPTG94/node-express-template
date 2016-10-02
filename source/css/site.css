@@ -20,7 +20,7 @@ section.about {
 }
 
 footer .footer-above {
-    background-color: #d95e49;
+    background-color: #0072cf;
 }
 
 footer .footer-below {
@@ -127,9 +127,17 @@ footer .footer-below {
     }
 }
 
-.express-logo {
-    display: block;
-    font: 25px "Helvetica Neue", "Open Sans", sans-serif;
-    font-weight: 100;
-    color: #444;
+.vertical-center {
+  height:100%;
+  width:100%;
+
+  text-align: center;  /* align the inline(-block) elements horizontally */
+  font: 0/0 a;         /* remove the gap between inline(-block) elements */
+}
+
+.vertical-center:before {    /* create a full-height inline block pseudo=element */
+  content: " ";
+  display: inline-block;
+  vertical-align: middle;    /* vertical alignment of the inline element */
+  height: 100%;
 }
