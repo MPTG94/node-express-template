@@ -12,11 +12,11 @@ var del = require('del');
 
 // Default Gulp task to run including all necessary dependencies
 gulp.task('default', ['browser-sync', 'build'], function() {
-  gulp.watch(["./source/*.html", './source/js/*.js',
-    './source/css/*.css'
+  gulp.watch(["source/*.html", 'source/js/*.js',
+    'source/css/*.css'
   ], ['build']);
-  gulp.watch(["./public/*.html", './public/js/*.js',
-    './public/css/*.css'
+  gulp.watch(["public/*.html", 'public/js/*.js',
+    'public/css/*.css'
   ], reload);
 });
 
@@ -50,14 +50,14 @@ gulp.task('build', ['minify-html', 'pack-minify-js', 'pack-minify-css',
 
 // Task to minify HTML
 gulp.task('minify-html', function() {
-  return gulp.src('./source/*.html')
+  return gulp.src('source/*.html')
     .pipe(htmlmin())
-    .pipe(gulp.dest('./public/'));
+    .pipe(gulp.dest('public/'));
 });
 
 // Task to minify JS
 gulp.task('pack-minify-js', function() {
-  return gulp.src(['./source/js/*.js', '!./source/js/*.min.js'])
+  return gulp.src(['source/js/*.js', '!source/js/*.min.js'])
     .pipe(concat('site.js'))
     .pipe(minify({
       ext: {
@@ -70,25 +70,22 @@ gulp.task('pack-minify-js', function() {
 
 // Task to minify CSS
 gulp.task('pack-minify-css', function() {
-  return gulp.src(['./source/css/*.css', '!./source/css/*.min.css'])
+  return gulp.src(['source/css/*.css', '!source/css/*.min.css'])
     .pipe(concat('site.css'))
     .pipe(cleanCss())
     .pipe(rename({
       suffix: '.min'
     }))
-    .pipe(gulp.dest('./public/css'));
+    .pipe(gulp.dest('public/css'));
 });
 
 // Task to copy assets
 gulp.task('copy-assets', function() {
-  return gulp.src('./source/assets/**/*')
-    .pipe(gulp.dest('./public/assets'));
+  return gulp.src('source/assets/**/*')
+    .pipe(gulp.dest('public/assets'));
 });
 
 // Task to delete target assets folder for recreation
-/*
-gulp.task('delete-assets', function() {
-  return del([
-    './public/assets/*
-  ]);
-});*/
+gulp.task('clean', function() {
+  return del(['public/**', '!public']);
+});
