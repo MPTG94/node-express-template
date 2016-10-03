@@ -5,6 +5,15 @@ var express = require('express');
 var fs = require('fs');
 var path = require('path');
 var logger = require('morgan');
+var mysql = require('mysql');
+
+// Setup MySQL connection
+var connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'Password1',
+  database: 'cardb'
+});
 
 // Initialize express
 var app = express();
@@ -31,6 +40,16 @@ if (app.get('env') === 'production') {
   console.log(app.get('env'));
   app.use(logger('dev'));
 }
+
+// Connecting to MySQL instance
+connection.connect(function(err) {
+  if (err) {
+    console.log("There was an error connecting to the DB:" + err);
+  } else {
+    console.log("Successfuly connected to DB, Connection ID:" +
+      connection.threadId);
+  }
+});
 
 // Setting default route for root
 // Serving html, css and js files for website
