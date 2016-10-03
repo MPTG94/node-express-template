@@ -7,3 +7,4 @@ Learning and playing with NodeJS, ExpressJS and Angular2
 * Add HTML minifcation - DONE!
 * Add unit tests
 * Add Angular2
+* Add REST API Functionality
