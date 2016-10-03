@@ -7,6 +7,10 @@ var path = require('path');
 var logger = require('morgan');
 var mysql = require('mysql');
 
+// Adding routers
+var cars = require('./api/cars');
+var companies = require('./api/companies');
+
 // Setup MySQL connection
 var connection = mysql.createConnection({
   host: 'localhost',
@@ -54,6 +58,10 @@ connection.connect(function(err) {
 // Setting default route for root
 // Serving html, css and js files for website
 app.use(express.static(path.join(__dirname, '../', 'public')));
+
+// Setting API routes
+app.use('/api/cars', cars);
+app.use('/api/companies', companies);
 
 // Setting app listen on port 3000
 app.listen(3000, function() {
