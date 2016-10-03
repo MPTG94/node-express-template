@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var connection = require('../db/dbConnection');
 
 // middleware that is specific to this router
 router.use(function timeLog(req, res, next) {
@@ -7,9 +8,17 @@ router.use(function timeLog(req, res, next) {
   next();
 });
 // define the home page route
+// define the home page route
 router.get('/', function(req, res) {
-  res.send('GET All Cars');
+  connection.query('SELECT * FROM cardb.companies', function(err, rows, fields) {
+    if (err) {
+      throw err;
+    } else {
+      res.send(rows);
+    }
+  });
 });
+
 // define the about route
 router.post('/', function(req, res) {
   res.send('POST All Cars');
