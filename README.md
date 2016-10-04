@@ -8,3 +8,4 @@ Learning and playing with NodeJS, ExpressJS and Angular2
 * Add unit tests
 * Add Angular2
 * Add REST API Functionality
+* Add GraphQL support

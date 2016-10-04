@@ -34,7 +34,6 @@ router.get('/', function(req, res) {
 // define route to get single item by id
 router.get('/:ID', function(req, res) {
   var params = req.params;
-  console.log(params);
   connection.query('SELECT * FROM cardb.companies WHERE ID = ?',
     params.ID,
     function(err, rows, fields) {
@@ -44,6 +43,38 @@ router.get('/:ID', function(req, res) {
         res.send(rows);
       }
     });
+});
+
+// define route to edit single item by id
+router.post('/:ID', jsonParser, function(req, res) {
+  if (!req.body) {
+    // No body in request, returning 400 status code
+    res.sendStatus(400);
+  }
+  var params = req.params;
+  var company = req.body;
+  var numberOfKeys = Object.keys(company).length;
+  if ((company.hasOwnProperty('Name') &&
+      company.hasOwnProperty('Established') &&
+      numberOfKeys === 2) ||
+    ((company.hasOwnProperty('Name') ||
+    company.hasOwnProperty('Established')) &&
+      numberOfKeys === 1)) {
+    var query = connection.query(`UPDATE cardb.companies SET ? WHERE ID = ?`,
+      [company, params.ID],
+      function(err, result) {
+        if (err) {
+          throw err;
+        } else {
+          console.log(result.affectedRows);
+          res.sendStatus(200);
+        }
+      });
+  } else {
+    // The input object either doesn't have all the necessary keys
+    // or it has more keys than required
+    return res.sendStatus(400);
+  }
 });
 
 // define the create new company route

@@ -1,7 +1,17 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var router = express.Router();
+var validate = require('validate.js');
 var connection = require('../db/dbConnection');
+var constraints = require('../db/validators/carValidators');
+
+// Create whitelist object for validation
+var whitelist = {
+  Name: true,
+  Trim: true,
+  HorsePower: true,
+  CompanyID: true
+};
 
 // Create parsers
 // create application/json parser
@@ -18,6 +28,7 @@ router.use(function timeLog(req, res, next) {
 });
 
 // define the basic get route
+// This call will return all rows from the DB
 router.get('/', function(req, res) {
   connection.query('SELECT * FROM cardb.cars', function(err, rows, fields) {
     if (err) {
@@ -29,6 +40,7 @@ router.get('/', function(req, res) {
 });
 
 // define route to get single item by id
+// This call will return a single row by it's ID from the DB
 router.get('/:ID', function(req, res) {
   var params = req.params;
   console.log(params);
@@ -43,17 +55,56 @@ router.get('/:ID', function(req, res) {
     });
 });
 
+// define route to edit single item by id
+// This call will update a single row by it's ID from the DB
+router.put('/:ID', jsonParser, function(req, res) {
+  if (!req.body) {
+    // No body in request, returning 400 status code
+    res.sendStatus(400);
+  }
+  var params = req.params;
+  var car = req.body;
+  console.log(`ID: ${params.ID}`);
+  car = validate.cleanAttributes(car, whitelist);
+  if (validate(car, constraints.updatedCarConst) === undefined) {
+    // Object is valid
+    var query = connection.query(`UPDATE cardb.cars SET ? WHERE ID = ?`,
+    [car, params.ID],
+    function(err, result) {
+      if (err) {
+        throw err;
+      } else {
+        connection.query('SELECT * FROM cardb.cars WHERE ID = ?',
+        params.ID,
+        function(err, rows, fields) {
+          if (err) {
+            throw err;
+          } else {
+            console.log(result.affectedRows);
+            res.send(rows);
+          }
+        });
+      }
+    });
+    console.log(`QUERY: ${query.sql}`);
+  } else {
+    // Object is not valid
+    res.sendStatus(400);
+  }
+});
+
 // define the create new car route
-router.post('/create', jsonParser, function(req, res) {
+// This call will create a new row in the DB
+router.post('/', jsonParser, function(req, res) {
   if (!req.body) {
     // No body in request, returning 400 status code
     return res.sendStatus(400);
   }
   var car = req.body;
-  if (car.hasOwnProperty('Name') && car.hasOwnProperty('Trim') &&
-    car.hasOwnProperty('HorsePower') && car.hasOwnProperty('CompanyID') &&
-    Object.keys(car).length === 4) {
-    // request body has all necessary values
+  car = validate.cleanAttributes(car, whitelist);
+  console.log(validate(car, constraints.newCarConst));
+  if (validate(car, constraints.newCarConst) === undefined) {
+    // Object is valid
     var query = connection.query(`INSERT INTO cardb.cars SET ?`, car,
       function(err, result) {
         if (err) {
@@ -75,7 +126,8 @@ router.post('/create', jsonParser, function(req, res) {
     // or it has more keys than required
     return res.sendStatus(400);
   }
-  // console.log(query.sql);
 });
+
+// TODO: Add delete method
 
 module.exports = router;
