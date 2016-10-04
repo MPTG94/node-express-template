@@ -113,4 +113,6 @@ router.post('/create', jsonParser, function(req, res) {
   // console.log(query.sql);
 });
 
+// TODO: fix REST methods to new standard
+
 module.exports = router;
