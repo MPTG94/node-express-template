@@ -28,6 +28,21 @@ router.get('/', function(req, res) {
   });
 });
 
+// define route to get single item by id
+router.get('/:ID', function(req, res) {
+  var params = req.params;
+  console.log(params);
+  connection.query('SELECT * FROM cardb.cars WHERE ID = ?',
+    params.ID,
+    function(err, rows, fields) {
+      if (err) {
+        throw err;
+      } else {
+        res.send(rows);
+      }
+    });
+});
+
 // define the create new car route
 router.post('/create', jsonParser, function(req, res) {
   if (!req.body) {

@@ -18,15 +18,32 @@ router.use(function timeLog(req, res, next) {
   console.log('Time: ', Date.now());
   next();
 });
+
 // define the basic get route
 router.get('/', function(req, res) {
-  connection.query('SELECT * FROM cardb.companies', function(err, rows, fields) {
-    if (err) {
-      throw err;
-    } else {
-      res.send(rows);
-    }
-  });
+  connection.query('SELECT * FROM cardb.companies',
+    function(err, rows, fields) {
+      if (err) {
+        throw err;
+      } else {
+        res.send(rows);
+      }
+    });
+});
+
+// define route to get single item by id
+router.get('/:ID', function(req, res) {
+  var params = req.params;
+  console.log(params);
+  connection.query('SELECT * FROM cardb.companies WHERE ID = ?',
+    params.ID,
+    function(err, rows, fields) {
+      if (err) {
+        throw err;
+      } else {
+        res.send(rows);
+      }
+    });
 });
 
 // define the create new company route
@@ -36,10 +53,12 @@ router.post('/create', jsonParser, function(req, res) {
     return res.sendStatus(400);
   }
   var company = req.body;
-  if (company.hasOwnProperty('Name') && company.hasOwnProperty('Established') &&
+  if (company.hasOwnProperty('Name') &&
+    company.hasOwnProperty('Established') &&
     Object.keys(company).length === 2) {
     // request body has all necessary values
-    var query = connection.query(`INSERT INTO cardb.companies SET ?`, company,
+    var query = connection.query(`INSERT INTO cardb.companies SET ?`,
+      company,
       function(err, result) {
         if (err) {
           throw err;
