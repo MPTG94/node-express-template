@@ -4,6 +4,7 @@
   "description": "Learning and messing around with NodeJS, ExpressJS and Angular2",
   "main": "index.js",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "file-stream-rotator": "0.0.7",
     "fs": "0.0.1-security",
