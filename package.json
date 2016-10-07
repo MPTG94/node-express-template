@@ -4,11 +4,14 @@
   "description": "Learning and messing around with NodeJS, ExpressJS and Angular2",
   "main": "index.js",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "file-stream-rotator": "0.0.7",
     "fs": "0.0.1-security",
     "morgan": "^1.7.0",
-    "path": "^0.12.7"
+    "mysql": "^2.11.1",
+    "path": "^0.12.7",
+    "validate.js": "^0.10.0"
   },
   "devDependencies": {
     "browser-sync": "^2.16.1",

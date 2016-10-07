@@ -6,6 +6,10 @@ var fs = require('fs');
 var path = require('path');
 var logger = require('morgan');
 
+// Adding routers
+var cars = require('./api/cars');
+var companies = require('./api/companies');
+
 // Initialize express
 var app = express();
 var logDirectory = path.join(__dirname, '../', 'log');
@@ -35,6 +39,10 @@ if (app.get('env') === 'production') {
 // Setting default route for root
 // Serving html, css and js files for website
 app.use(express.static(path.join(__dirname, '../', 'public')));
+
+// Setting API routes
+app.use('/api/cars', cars);
+app.use('/api/companies', companies);
 
 // Setting app listen on port 3000
 app.listen(3000, function() {
