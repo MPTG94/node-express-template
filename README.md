@@ -1,11 +1,11 @@
-# node-express-angular
-Learning and playing with NodeJS, ExpressJS and Angular2
+# node-express-react
+Learning and playing with NodeJS, ExpressJS and React
 
 ## TODO
 * Add CSS minification - DONE!
 * Add JS minification - DONE!
 * Add HTML minifcation - DONE!
-* Add unit tests
-* Add Angular2
-* Add REST API Functionality
+* Add REST API Functionality - DONE!
+* Add React
 * Add GraphQL support
+* Add unit tests

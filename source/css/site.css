@@ -141,3 +141,11 @@ footer .footer-below {
   vertical-align: middle;    /* vertical alignment of the inline element */
   height: 100%;
 }
+
+.react-svg-logo {
+    display: inline-block;
+    background: url(../assets/images/Reactjs-logo.svg) no-repeat;
+    background-size: 100% 100%;
+    height: auto;
+    width: auto;
+}
