@@ -1,11 +1,9 @@
-# node-express-react
-Learning and playing with NodeJS, ExpressJS and React
+# node-express-template
+A basic template to get started with node.js, express and a basic REST API
 
 ## TODO
 * Add CSS minification - DONE!
 * Add JS minification - DONE!
 * Add HTML minifcation - DONE!
 * Add REST API Functionality - DONE!
-* Add React
-* Add GraphQL support
 * Add unit tests
