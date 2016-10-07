@@ -66,31 +66,34 @@ router.put('/:ID', jsonParser, function(req, res) {
   var car = req.body;
   console.log(`ID: ${params.ID}`);
   car = validate.cleanAttributes(car, whitelist);
-  if (validate(car, constraints.updatedCarConst) === undefined) {
-    // Object is valid
-    var query = connection.query(`UPDATE cardb.cars SET ? WHERE ID = ?`,
-      [car, params.ID],
-      function(err, result) {
-        if (err) {
-          throw err;
-        } else {
-          connection.query('SELECT * FROM cardb.cars WHERE ID = ?',
-            params.ID,
-            function(err, rows, fields) {
-              if (err) {
-                throw err;
-              } else {
-                console.log(result.affectedRows);
-                res.send(rows);
-              }
-            });
-        }
-      });
-    console.log(`QUERY: ${query.sql}`);
-  } else {
-    // Object is not valid
-    res.sendStatus(400);
+  if (Object.keys(car) !== 0) {
+    if (validate(car, constraints.updatedCarConst) === undefined) {
+      // Object is valid
+      var query = connection.query(`UPDATE cardb.cars SET ? WHERE ID = ?`,
+        [car, params.ID],
+        function(err, result) {
+          if (err) {
+            throw err;
+          } else {
+            connection.query('SELECT * FROM cardb.cars WHERE ID = ?',
+              params.ID,
+              function(err, rows, fields) {
+                if (err) {
+                  throw err;
+                } else {
+                  console.log(result.affectedRows);
+                  res.send(rows);
+                }
+              });
+          }
+        });
+      console.log(`QUERY: ${query.sql}`);
+    } else {
+      // Object is not valid
+      res.sendStatus(400);
+    }
   }
+  res.status(400).send(`Error: Sent data is not valid`);
 });
 
 // define route to delete single item by id
@@ -123,7 +126,7 @@ router.delete('/:ID', jsonParser, function(req, res) {
         });
       console.log(`QUERY: ${query.sql}`);
     } else {
-      // Request body ID doesn't match request URL parameters ID, not deleting
+      // Request body ID doesn't match request URL parameter ID, not deleting
       res.sendStatus(400);
     }
   } else {
@@ -161,12 +164,9 @@ router.post('/', jsonParser, function(req, res) {
         }
       });
   } else {
-    // The input object either doesn't have all the necessary keys
-    // or it has more keys than required
+    // Object is not valid
     return res.sendStatus(400);
   }
 });
-
-// TODO: Add delete method
 
 module.exports = router;

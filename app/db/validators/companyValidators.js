@@ -4,21 +4,11 @@ var constraints = {};
  * Constraints for creation of an object in the DB
  * @type {Object}
  */
-constraints.newCarConst = {
+constraints.newCompanyConst = {
   Name: {
     presence: true
   },
-  Trim: {
-    presence: true
-  },
-  HorsePower: {
-    presence: true,
-    numericality: {
-      onlyInteger: true,
-      greaterThan: 0
-    }
-  },
-  CompanyID: {
+  Established: {
     presence: true,
     numericality: {
       onlyInteger: true,
@@ -31,14 +21,8 @@ constraints.newCarConst = {
  * Constraints for update of an object in the DB
  * @type {Object}
  */
-constraints.updatedCarConst = {
-  HorsePower: {
-    numericality: {
-      onlyInteger: true,
-      greaterThan: 0
-    }
-  },
-  CompanyID: {
+constraints.updatedCompanyConst = {
+  Established: {
     numericality: {
       onlyInteger: true,
       greaterThan: 0
@@ -50,7 +34,7 @@ constraints.updatedCarConst = {
  * Constraints for deletion of a object in the DB
  * @type {Object}
  */
-constraints.deleteCarConst = {
+constraints.deleteCompanyConst = {
   ID: {
     presence: true,
     numericality: {
