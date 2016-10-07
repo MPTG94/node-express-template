@@ -34,7 +34,7 @@ router.get('/', function(req, res) {
     if (err) {
       throw err;
     } else {
-      res.send(rows);
+      res.status(200).send(rows);
     }
   });
 });
@@ -50,7 +50,7 @@ router.get('/:ID', function(req, res) {
       if (err) {
         throw err;
       } else {
-        res.send(rows);
+        res.status(200).send(rows);
       }
     });
 });
@@ -60,7 +60,7 @@ router.get('/:ID', function(req, res) {
 router.put('/:ID', jsonParser, function(req, res) {
   if (!req.body) {
     // No body in request, returning 400 status code
-    res.sendStatus(400);
+    res.status(400).send(`Error: No body in request`);
   }
   var params = req.params;
   var car = req.body;
@@ -82,7 +82,7 @@ router.put('/:ID', jsonParser, function(req, res) {
                   throw err;
                 } else {
                   console.log(result.affectedRows);
-                  res.send(rows);
+                  res.status(200).send(rows);
                 }
               });
           }
@@ -90,7 +90,7 @@ router.put('/:ID', jsonParser, function(req, res) {
       console.log(`QUERY: ${query.sql}`);
     } else {
       // Object is not valid
-      res.sendStatus(400);
+      res.status(200).send(validate(car, constraints.updatedCarConst));
     }
   }
   res.status(400).send(`Error: Sent data is not valid`);
@@ -101,7 +101,7 @@ router.put('/:ID', jsonParser, function(req, res) {
 router.delete('/:ID', jsonParser, function(req, res) {
   if (!req.body) {
     // No body in request, returning 400 status code
-    res.sendStatus(400);
+    res.status(400).send(`Error: No body in request`);
   }
   var params = req.params;
   var car = req.body;
@@ -127,11 +127,12 @@ router.delete('/:ID', jsonParser, function(req, res) {
       console.log(`QUERY: ${query.sql}`);
     } else {
       // Request body ID doesn't match request URL parameter ID, not deleting
-      res.sendStatus(400);
+      return res.status(400).send(`Error: Request body ID doesn't match \
+request URL parameters ID, not deleting`);
     }
   } else {
     // Object is not valid
-    res.sendStatus(400);
+    res.status(400).send(validate(car, constraints.deleteCarConst));
   }
 });
 
@@ -140,7 +141,7 @@ router.delete('/:ID', jsonParser, function(req, res) {
 router.post('/', jsonParser, function(req, res) {
   if (!req.body) {
     // No body in request, returning 400 status code
-    return res.sendStatus(400);
+    res.status(400).send(`Error: No body in request`);
   }
   var car = req.body;
   car = validate.cleanAttributes(car, whitelist);
@@ -158,14 +159,14 @@ router.post('/', jsonParser, function(req, res) {
               if (err) {
                 throw err;
               } else {
-                res.send(rows);
+                res.status(200).send(rows);
               }
             });
         }
       });
   } else {
     // Object is not valid
-    return res.sendStatus(400);
+    return res.status(400).send(validate(car, constraints.newCarConst));
   }
 });
 

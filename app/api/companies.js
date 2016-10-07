@@ -83,7 +83,7 @@ router.put('/:ID', jsonParser, function(req, res) {
                   throw err;
                 } else {
                   console.log(result.affectedRows);
-                  res.send(rows);
+                  res.status(200).send(rows);
                 }
               });
           }
