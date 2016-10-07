@@ -39,4 +39,15 @@ constraints.updatedCarConst = {
   }
 };
 
+// ID, Name, Trim, HorsePower, CompanyID
+constraints.deleteCarConst = {
+  ID: {
+    presence: true,
+    numericality: {
+      onlyInteger: true,
+      greaterThan: 0
+    }
+  }
+};
+
 module.exports = constraints;

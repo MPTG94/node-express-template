@@ -69,24 +69,63 @@ router.put('/:ID', jsonParser, function(req, res) {
   if (validate(car, constraints.updatedCarConst) === undefined) {
     // Object is valid
     var query = connection.query(`UPDATE cardb.cars SET ? WHERE ID = ?`,
-    [car, params.ID],
-    function(err, result) {
-      if (err) {
-        throw err;
-      } else {
-        connection.query('SELECT * FROM cardb.cars WHERE ID = ?',
+      [car, params.ID],
+      function(err, result) {
+        if (err) {
+          throw err;
+        } else {
+          connection.query('SELECT * FROM cardb.cars WHERE ID = ?',
+            params.ID,
+            function(err, rows, fields) {
+              if (err) {
+                throw err;
+              } else {
+                console.log(result.affectedRows);
+                res.send(rows);
+              }
+            });
+        }
+      });
+    console.log(`QUERY: ${query.sql}`);
+  } else {
+    // Object is not valid
+    res.sendStatus(400);
+  }
+});
+
+// define route to delete single item by id
+// This call will delete a single row by it's ID from the DB
+router.delete('/:ID', jsonParser, function(req, res) {
+  if (!req.body) {
+    // No body in request, returning 400 status code
+    res.sendStatus(400);
+  }
+  var params = req.params;
+  var car = req.body;
+  console.log(`ID: ${params.ID}`);
+  console.log(`ID From Body: ${car.ID}`);
+  car = validate.cleanAttributes(car, {
+    ID: true
+  });
+  console.log(`validated`);
+  if (validate(car, constraints.deleteCarConst) === undefined) {
+    // Object is valid
+    if (parseInt(car.ID, 10) === parseInt(params.ID, 10)) {
+      console.log(`IDS MATCH`);
+      var query = connection.query(`DELETE FROM cardb.cars WHERE ID = ?`,
         params.ID,
-        function(err, rows, fields) {
+        function(err, result) {
           if (err) {
             throw err;
           } else {
-            console.log(result.affectedRows);
-            res.send(rows);
+            res.send("Object deleted successfuly");
           }
         });
-      }
-    });
-    console.log(`QUERY: ${query.sql}`);
+      console.log(`QUERY: ${query.sql}`);
+    } else {
+      // Request body ID doesn't match request URL parameters ID, not deleting
+      res.sendStatus(400);
+    }
   } else {
     // Object is not valid
     res.sendStatus(400);
